@@ -7,7 +7,7 @@
     ansible-playbook elk.yml
     ```
 
-4. Access Kibana at [https://{public ip}:5601/](https://{public ip}:5601/).
+4. Access Kibana at [https://{public ip}:5601/].
 
 5. Generate enrollment token for Kibana:
     ```bash
@@ -24,7 +24,7 @@
     /usr/share/elasticsearch/bin/elasticsearch-reset-password -i -u elastic
     ```
 
-8. Log in to Kibana, go to Fleet, and add a fleet server with the following URL: [https://{private ip}:8220](https://{private ip}:8220).
+8. Log in to Kibana, go to Fleet, and add a fleet server with the following URL: [https://{private ip}:8220].
 
 9. After successfully adding the fleet agent, you can start adding other agents to different environments.
 
