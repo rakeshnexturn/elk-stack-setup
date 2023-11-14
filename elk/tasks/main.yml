@@ -79,7 +79,7 @@
 
 - name: Generate Kibana SSL certificate
   become: yes
-  command: "openssl x509 -req -in {{ home_directory }}/certs/kibana/kibana.csr -signkey {{ home_directory }}/certs/kibana/kibana.key -out {{ home_directory }}/certs/kibana/kibana.crt"
+  command: "openssl x509 -req -in {{ home_directory }}/certs/kibana/kibana.csr -signkey {{ home_directory }}/certs/kibana/kibana.key -out {{ home_directory }}/etc/kibana/config/certs/kibana.crt"
 
 - name: Configure Kibana
   become: yes
