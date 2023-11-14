@@ -1,0 +1,6 @@
+- name: install sonarqube
+  hosts: localhost
+  become: yes
+
+  roles:
+    - elk
