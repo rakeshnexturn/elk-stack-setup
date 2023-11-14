@@ -8,18 +8,21 @@
     - openjdk-11-jre-headless
     - apt-transport-https
     - unzip
+    - dirmngr
 
-- name: Add Elasticsearch GPG key
+- name: Import Elasticsearch GPG key
   become: yes
   apt_key:
     url: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
+    id: "D27D666CD88E42B4"
     state: present
 
 - name: Add Elasticsearch repository
   become: yes
   apt_repository:
-    repo: "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main"
+    repo: "deb [arch=amd64] https://artifacts.elastic.co/packages/8.x/apt stable main"
     state: present
+    update_cache: yes
 
 - name: Install Elasticsearch
   become: yes
@@ -71,15 +74,15 @@
   become: yes
   command: "unzip {{ home_directory }}/certs/certs.zip -d {{ home_directory }}/certs"
 
+- name: Generate Kibana SSL certificate
+  become: yes
+  command: "openssl x509 -req -in {{ home_directory }}/certs/kibana/kibana.csr -signkey {{ home_directory }}/certs/kibana/kibana.key -out {{ home_directory }}/certs/kibana/kibana.crt"
+
 - name: Copy Kibana certs to config directory
   become: yes
   copy:
     src: "{{ home_directory }}/certs/kibana/"
     dest: "/etc/kibana/config/certs/"
-
-- name: Generate Kibana SSL certificate
-  become: yes
-  command: "openssl x509 -req -in {{ home_directory }}/certs/kibana/kibana.csr -signkey {{ home_directory }}/certs/kibana/kibana.key -out {{ home_directory }}/etc/kibana/config/certs/kibana.crt"
 
 - name: Configure Kibana
   become: yes
